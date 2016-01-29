@@ -1,0 +1,53 @@
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default */
+
+:local(.toolbar) {
+    background: white;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+:local(.hamburgerBtn){
+    background: transparent;
+    border: none;
+    height: 100%;
+    width: 40px;
+    color: #919191;
+    transition: color 0.3s;
+}
+
+:local(.hamburgerBtn:hover){
+    background: transparent;
+    border: none;
+    height: 100%;
+    width: 40px;
+    color: black;
+}
+
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    /*.toolbar-theme {*/
+        /*background: red;*/
+        /*width: 100%;*/
+    /*}*/
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    /*.toolbar-theme {*/
+        /*background: darkblue;*/
+        /*width: 100%;*/
+    /*}*/
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    /*.toolbar-theme {*/
+        /*background: yellow;*/
+        /*width: 100%;*/
+    /*}*/
+}

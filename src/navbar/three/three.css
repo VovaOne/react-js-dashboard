@@ -1,0 +1,57 @@
+:local(.appNavbarThreeStyleClosed) {
+    background: transparent;
+    width: 100%;
+    min-height: 60px;
+
+    font-size: 14px;
+    line-height: 40px;
+
+    color: #d6d9dc;
+    transition: color 0.3s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:local(.appNavbarThreeStyleClosed:hover) {
+    background: #475360;
+    color: white;
+    cursor: hand;
+}
+
+:local(.appNavbarThreeStyleOpened) {
+    clear: both;
+    background: transparent;
+    width: 100%;
+    min-height: 60px;
+    height: auto;
+    padding: 0;
+    font-size: 14px;
+    line-height: 40px;
+    background: #2C3845;
+    color: #d6d9dc;
+    transition: color 0.3s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+.app-navbar-three-name {
+    margin-left: 20px;
+}
+
+.app-navbar-three-open-ic {
+    padding: 12px 20px 10px 20px;
+    float: right;
+}
+
+:local(.threeChild) {
+    height: 60px;
+    width: 100%;
+}
+
+.test-three-child-margin {
+    margin: 0 10px 0 20px;
+}
+
+

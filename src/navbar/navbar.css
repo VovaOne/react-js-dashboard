@@ -1,0 +1,31 @@
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default */
+
+.app-navbar {
+    background: #32404E;
+    width: 340px;
+    height: calc(100% - 50px);
+    overflow: scroll;
+
+    z-index: 1000;
+    position: fixed;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}

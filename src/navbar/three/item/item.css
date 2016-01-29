@@ -1,0 +1,26 @@
+:local(.appNavbarItem) {
+    background: transparent;
+    width: 100%;
+    height: 60px;
+
+    padding: 10px 5px 10px 20px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 40px;
+    color: #d6d9dc;
+    transition: color 0.3s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:local(.appNavbarItem:hover) {
+    background: #475360;
+    color: white;
+    cursor: hand;
+
+}
+
+:local(.appNavbarItemName) {
+    margin-left: 20px;
+}
+
