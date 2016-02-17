@@ -1,0 +1,38 @@
+:local(.dropdown) {
+    position: relative;
+    display: inline-block;
+    font-size: 12px;
+    border-left: 1px solid #E0E0E0;
+    border-right: 1px solid #E0E0E0;
+    width: 24px;
+    cursor: pointer;
+    color: #919191;
+    height: 24px;
+    padding: 2px 5px;
+    float: right;
+}
+
+:local(.noDropdown) {
+    position: relative;
+    display: inline-block;
+    border: none;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    float: right;
+}
+
+:local(.dropdownContent) {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 160px;
+    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
+    padding: 0;
+    left: 0;
+    top: 25px;
+}
+
+:local(.block) {
+    display: block;
+}

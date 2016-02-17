@@ -2,4 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+window.appContainer = document.getElementById('root');
+
+ReactDOM.render(<App />, window.appContainer);

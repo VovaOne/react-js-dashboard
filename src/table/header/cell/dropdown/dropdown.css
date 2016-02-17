@@ -1,0 +1,31 @@
+:local(.dropdown) {
+    padding: 5px;
+}
+
+
+:local(.dropdownItem:hover){
+    background-color: rgba(242, 247, 252, 0.42);
+}
+
+
+:local(.columsItem) {
+    position: relative;
+    display: inline-block;
+}
+
+:local(.dropdownColums) {
+    z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 160px;
+    height: 100px;
+    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
+    padding: 0;
+    left: 157px;
+    top: 0;
+}
+
+:local(.columsItem:hover .dropdownColums) {
+    display: block;
+}

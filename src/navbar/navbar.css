@@ -4,9 +4,9 @@
 .app-navbar {
     background: #32404E;
     width: 340px;
+    margin-top: 50px;
     height: calc(100% - 50px);
     overflow: scroll;
-
     z-index: 1000;
     position: fixed;
     -webkit-transition: all 0.5s ease;
