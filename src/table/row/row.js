@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 import rowStyles from './row.css';
 import tableStyles from '../table.css';
+import TextCell from './cell/text/text-cell';
+import ImageCell from './cell/image/image-cell';
 
 
 export default class Row extends Component {
 
+  static propTypes:{
+    columns: React.PropTypes.array,
+    data: React.PropTypes.object
+    };
+
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div className={rowStyles.tableRow}>
-        <div className={rowStyles.tableCell}>Cassie</div>
-        <div className={rowStyles.tableCell}><a href="tel:9876532432">9876 532 432</a></div>
-        <div className={rowStyles.tableCell}><img src="images/check.gif" alt="checked"/></div>
+        {this.props.columns.map((column)=>{
+          if(column.type=='text') return <TextCell text={this.props.data[column.data]}/>
+          if(column.type=='image') return <ImageCell url={this.props.data[column.data]}/>
+        })}
       </div>
     );
   }

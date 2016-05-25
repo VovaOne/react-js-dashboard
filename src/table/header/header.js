@@ -7,6 +7,9 @@ import CellHeader from './cell/cell'
 
 export default class Header extends Component {
 
+  static propTypes:{
+    columns: React.PropTypes.array
+    };
 
   constructor(props) {
     super(props);
@@ -16,9 +19,7 @@ export default class Header extends Component {
   render() {
     return (
       <div className={classNames(headerStyles.tableRow)}>
-        <CellHeader headerName="Name"/>
-        <CellHeader headerName="Phone"/>
-        <CellHeader headerName="Photo"/>
+        {this.props.columns.map((column)=>{return <CellHeader headerName={column.name}/>})}
       </div>
     );
   }

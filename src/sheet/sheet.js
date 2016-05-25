@@ -9,7 +9,45 @@ export default class Sheet extends Component {
   render() {
     return (
       <div className={styles.sheet}>
-        <Table/>
+        <Table
+          columns={[{
+              name: 'Name',
+              data: 'name',
+              type: 'text',
+              width: 200,
+              filter: {}
+            },{
+              name: 'Phone',
+              data: 'phone',
+              type: 'text',
+              width: 100,
+              filter: {}
+            },{
+              name: 'Photo',
+              data: 'photo',
+              type: 'image',
+              width: 100,
+              filter: {}
+            }
+          ]}
+          data={[{
+            name: "Cassie",
+            phone: "9876 532 432",
+            photo: "images/check.gif"
+          },{
+            name: "Cassie",
+            phone: "9876 532 432",
+            photo: "images/check.gif"
+          },{
+            name: "Cassie",
+            phone: "9876 532 432",
+            photo: "images/check.gif"
+          },{
+            name: "Cassie",
+            phone: "9876 532 432",
+            photo: "images/check.gif"
+          }]}
+        />
       </div>
     );
   }
