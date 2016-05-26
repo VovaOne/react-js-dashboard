@@ -15,7 +15,7 @@
 
 :local(.dropdownColums) {
     z-index: 1;
-    display: none;
+    display: block;
     position: absolute;
     background-color: white;
     width: 160px;
@@ -24,8 +24,4 @@
     padding: 0;
     left: 157px;
     top: 0;
-}
-
-:local(.columsItem:hover .dropdownColums) {
-    display: block;
 }

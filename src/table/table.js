@@ -65,13 +65,24 @@ export default class Table extends Component {
     this.size = 20;
   }
 
+  displayColumnCallback = (displayColumnsMap) => {
+
+  };
+
   render() {
     return (
       <div className={styles.sheet}>
         <div className={styles.table}>
           <Header>
             {this.props.columns.map((column, index)=> {
-              return <CellHeader key={index} headerName={column.name} width={20}/>
+              return <CellHeader key={index}
+                                 headerName={column.name}
+                                 displayColumnsMap={[
+                                   {name: 'Name', display : true},
+                                   {name: 'Phone', display : true},
+                                   {name: 'Photo', display : true}
+                                 ]}
+                                 displayColumnCallback={this.displayColumnCallback}/>
             })}
           </Header>
           {this.props.data.map((rowData)=> {

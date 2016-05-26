@@ -8,21 +8,28 @@ import DropDown from './dropdown/dropdown';
 
 export default class Cell extends Component {
 
+  static propTypes:{
+    displayColumnsMap: React.PropTypes.array,
+    displayColumnCallback: React.PropTypes.func
+    };
+
+  static idCount = 0;
 
   constructor(props) {
     super(props);
+
     this.state = {
-      width: props.width,
-      mouseEnter: true,
-      dropDownOpened: true
+      mouseEnter: false,
+      dropDownOpened: false
     };
   }
 
   componentDidMount = () => {
-    clickOutside.addToSubscribers(this.onClickOutside)
+   this.clickOutsideCallbackId = clickOutside.addToSubscribers(this.onClickOutside)
   };
 
   componentWillUnmount = () => {
+    clickOutside.deleteFromSubscribers(this.clickOutsideCallbackId)
   };
 
   onMouseEnter = (e) => {
@@ -41,17 +48,28 @@ export default class Cell extends Component {
     this.setState({dropDownOpened: !this.state.dropDownOpened});
   };
 
+  clickOutsideCallbackId;
   onClickOutside = (e) => {
     e.preventDefault();
-    if(e.target.tagName == "SPAN") console.log(e.target.parentNode.className.split("").forEach(c => {
-      if(c == cellStyles.dropdown) this.setState({dropDownOpened: !this.state.dropDownOpened});
-    }));
-    else this.setState({dropDownOpened: false});
+    if(e.target.tagName == "SPAN") {
+      e.target.parentNode.className.split("").forEach(c => {
+        if(c == cellStyles.dropdown) this.setState({dropDownOpened: !this.state.dropDownOpened});
+      });
+    }
+    else {
+      this.setState({
+        dropDownOpened: false,
+        mouseEnter: false
+      });
+    }
   };
 
+  displayColumnCallback = (displayColumnsMap) => {
+    if(props.displayColumnCallback)displayColumnCallback(displayColumnsMap);
+  };
 
   render() {
-
+    console.log(this.state.dropDownOpened);
     return (
       <div className={classNames(tableHeadStyle.tableHead, tableStyle.tableCell)}
            onMouseEnter={this.onMouseEnter}
@@ -63,7 +81,9 @@ export default class Cell extends Component {
              className={classNames(cellStyles.dropdown, this.state.dropDownOpened && cellStyles.block)}>
           <span>▼</span>
           <div className={classNames(cellStyles.dropdownContent, this.state.dropDownOpened && cellStyles.block)}>
-            <DropDown/>
+            <DropDown
+              displayColumnsMap={this.props.displayColumnsMap}
+              displayCallback={this.displayColumnCallback}/>
           </div>
         </div>}
 

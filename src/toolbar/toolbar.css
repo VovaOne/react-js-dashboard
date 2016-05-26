@@ -9,7 +9,7 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-:local(.hamburgerBtn){
+:local(.hamburgerBtn) {
     background: transparent;
     border: none;
     height: 100%;
@@ -18,7 +18,7 @@
     transition: color 0.3s;
 }
 
-:local(.hamburgerBtn:hover){
+:local(.hamburgerBtn:hover) {
     background: transparent;
     border: none;
     height: 100%;
@@ -26,28 +26,26 @@
     color: black;
 }
 
-
-
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     /*.toolbar-theme {*/
-        /*background: red;*/
-        /*width: 100%;*/
+    /*background: red;*/
+    /*width: 100%;*/
     /*}*/
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     /*.toolbar-theme {*/
-        /*background: darkblue;*/
-        /*width: 100%;*/
+    /*background: darkblue;*/
+    /*width: 100%;*/
     /*}*/
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     /*.toolbar-theme {*/
-        /*background: yellow;*/
-        /*width: 100%;*/
+    /*background: yellow;*/
+    /*width: 100%;*/
     /*}*/
 }

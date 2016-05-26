@@ -29,10 +29,11 @@ body p {
     font-weight: 300; /* You specify the number you see next to the fonts to change from light to bold ie you would put 700 etc. etc. */
 }
 
-.content-width-with-closed-sidebar{
+.content-width-with-closed-sidebar {
     padding-left: 0;
 }
-.content-width-with-opened-sidebar{
+
+.content-width-with-opened-sidebar {
     padding-left: 0;
 }
 
@@ -43,7 +44,7 @@ body p {
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    .content-width-with-opened-sidebar{
+    .content-width-with-opened-sidebar {
         padding-left: 340px;
     }
 }
