@@ -1,14 +1,8 @@
-:local(.tableRow) {
-    display: table-row;
-}
-
 :local(.tableRow:hover) {
     background-color: rgba(242, 247, 252, 0.42);
 }
 
 
 :local(.tableCell) {
-    display: table-cell;
     padding: 3px 10px;
-
 }

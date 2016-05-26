@@ -33,19 +33,23 @@ export default class Sheet extends Component {
           data={[{
             name: "Cassie",
             phone: "9876 532 432",
-            photo: "images/check.gif"
+            photo: "images/check.gif",
+            id: 1
           },{
             name: "Cassie",
             phone: "9876 532 432",
-            photo: "images/check.gif"
+            photo: "images/check.gif",
+            id: 2
           },{
             name: "Cassie",
             phone: "9876 532 432",
-            photo: "images/check.gif"
+            photo: "images/check.gif",
+            id: 3
           },{
             name: "Cassie",
             phone: "9876 532 432",
-            photo: "images/check.gif"
+            photo: "images/check.gif",
+            id: 4
           }]}
         />
       </div>

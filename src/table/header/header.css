@@ -1,9 +1,4 @@
-:local(.tableRow) {
-    display: table-row;
-}
-
 :local(.tableHead) {
-    display: table-cell;
     border-bottom: 1px solid #E0E0E0;
     padding: 0 5px;
     height: 26px;

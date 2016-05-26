@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cellStyles from './cell.css';
 import tableHeadStyle from '../header.css';
+import tableStyle from '../../table.css';
 import clickOutside from '../../../click-outside';
 import classNames from 'classnames';
 import DropDown from './dropdown/dropdown';
@@ -10,8 +11,8 @@ export default class Cell extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
+      width: props.width,
       mouseEnter: true,
       dropDownOpened: true
     };
@@ -22,7 +23,6 @@ export default class Cell extends Component {
   };
 
   componentWillUnmount = () => {
-    debugger;
   };
 
   onMouseEnter = (e) => {
@@ -53,7 +53,7 @@ export default class Cell extends Component {
   render() {
 
     return (
-      <div className={tableHeadStyle.tableHead}
+      <div className={classNames(tableHeadStyle.tableHead, tableStyle.tableCell)}
            onMouseEnter={this.onMouseEnter}
            onMouseLeave={this.onMouseLeave}>
         {this.props.headerName}

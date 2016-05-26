@@ -3,6 +3,7 @@ import rowStyles from './row.css';
 import tableStyles from '../table.css';
 import TextCell from './cell/text/text-cell';
 import ImageCell from './cell/image/image-cell';
+import classNames from 'classnames';
 
 
 export default class Row extends Component {
@@ -18,10 +19,20 @@ export default class Row extends Component {
 
   render() {
     return (
-      <div className={rowStyles.tableRow}>
-        {this.props.columns.map((column)=>{
-          if(column.type=='text') return <TextCell text={this.props.data[column.data]}/>
-          if(column.type=='image') return <ImageCell url={this.props.data[column.data]}/>
+      <div className={tableStyles.tableRow}>
+        {this.props.columns.map((column, index)=> {
+          if(column.hidden) return
+
+          if(column.type == 'text') return <div
+            className={classNames(tableStyles.tableCell ,rowStyles.tableCell)}>
+            {this.props.data[column.data]}
+          </div>
+
+          else if(column.type == 'image') return <div
+            className={classNames(tableStyles.tableCell ,rowStyles.tableCell)}>
+            <img src={this.props.data[column.data]}
+                 alt="checked"/>
+          </div>
         })}
       </div>
     );
