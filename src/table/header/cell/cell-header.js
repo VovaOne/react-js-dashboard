@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import cellStyles from './cell.css';
+import cellStyles from './cell-header.css';
 import tableHeadStyle from '../header.css';
 import tableStyle from '../../table.css';
 import clickOutside from '../../../click-outside';
 import classNames from 'classnames';
 import DropDown from './dropdown/dropdown';
 
-export default class Cell extends Component {
+export default class CellHeader extends Component {
 
   static propTypes:{
+    column: React.PropTypes.object,
     displayColumnsMap: React.PropTypes.array,
-    displayColumnCallback: React.PropTypes.func
+    displayColumnCallback: React.PropTypes.func,
+    filterChangeCallback: React.PropTypes.func
     };
-
-  static idCount = 0;
 
   constructor(props) {
     super(props);
@@ -85,13 +85,16 @@ export default class Cell extends Component {
   displayColumnCallback = (displayColumnsMap) => {
     this.props.displayColumnCallback(displayColumnsMap);
   };
+  onFilterChangeCallback = (filter) => {
+    this.props.filterChangeCallback(filter);
+  };
 
   render() {
     return (
       <div className={classNames(tableHeadStyle.tableHead, tableStyle.tableCell)}
            onMouseEnter={this.onMouseEnter}
            onMouseLeave={this.onMouseLeave}>
-        {this.props.headerName}
+        {this.props.column.name}
         {this.state.mouseEnter
         &&
         <div onClick={this.toggleDown}
@@ -102,6 +105,8 @@ export default class Cell extends Component {
               displayColumnsMap={this.props.displayColumnsMap}
               displayColumnCallback={this.displayColumnCallback}
               subMenuSelectedStateCallback={this.onDropDownSubMenuSelectedStateCallback}
+              column={this.props.column}
+              filterChangeCallback={this.onFilterChangeCallback}
             />
           </div>
         </div>}

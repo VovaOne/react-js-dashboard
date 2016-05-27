@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './table.css';
 import Header from './header/header'
 import Row from './row/row'
-import CellHeader from './header/cell/cell'
+import CellHeader from './header/cell/cell-header'
 import classnames from 'classnames'
 /*
 
@@ -12,19 +12,18 @@ import classnames from 'classnames'
  data: 'name',
  type: 'text',
  width: 200,
- filter: {}
+ filter: {type: 'text'}
  },{
  name: 'Phone',
  data: 'phone',
  type: 'text',
  width: 100,
- filter: {}
+ filter: {type: 'text'}
  },{
  name: 'Photo',
  data: 'photo',
  type: 'image',
- width: 100,
- filter: {}
+ width: 100
  }
  ]}
  data={[{
@@ -84,6 +83,10 @@ export default class Table extends Component {
     this.setState({columns: newColumnsState});
   };
 
+  onFilterChangeCallback = (filter)=> {
+
+  };
+
   render() {
     return (
       <div className={styles.sheet}>
@@ -92,9 +95,10 @@ export default class Table extends Component {
             {this.state.columns.map((column, index)=> {
               if(!column.display) return;
               return <CellHeader key={index}
-                                 headerName={column.name}
+                                 column={column}
                                  displayColumnsMap={this.state.columns.map((column)=>{return {name: column.name, display: column.display}})}
-                                 displayColumnCallback={this.displayColumnCallback}/>
+                                 displayColumnCallback={this.displayColumnCallback}
+                                 filterChangeCallback={this.onFilterChangeCallback}/>
             })}
           </Header>
           {this.props.data.map((rowData)=> {

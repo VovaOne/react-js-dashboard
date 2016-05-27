@@ -15,19 +15,18 @@ export default class Sheet extends Component {
               data: 'name',
               type: 'text',
               width: 200,
-              filter: {}
+              filter: {type: 'text'}
             },{
               name: 'Phone',
               data: 'phone',
               type: 'text',
               width: 100,
-              filter: {}
+              filter: {type: 'text'}
             },{
               name: 'Photo',
               data: 'photo',
               type: 'image',
-              width: 100,
-              filter: {}
+              width: 100
             }
           ]}
           data={[{

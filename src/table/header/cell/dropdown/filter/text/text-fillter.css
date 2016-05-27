@@ -1,0 +1,19 @@
+:local(.dropDownSubMenu) {
+    z-index: 1;
+    display: block;
+    position: absolute;
+    background-color: white;
+    width: 200px;
+    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
+    left: 162px;
+    top: 53px;
+    height: 30px;
+    padding: 1px;
+}
+
+
+:local(.textField) {
+    width: 100%;
+    height: 28px;
+    border: solid rgba(0, 0, 0, 0.2) 1px;
+}
