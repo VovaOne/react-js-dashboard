@@ -17,6 +17,12 @@ export default class Sheet extends Component {
               width: 200,
               filter: {type: 'text'}
             },{
+              name: 'Age',
+              data: 'age',
+              type: 'text',
+              width: 100,
+              filter: {type: 'number'}
+            },{
               name: 'Phone',
               data: 'phone',
               type: 'text',
@@ -31,21 +37,25 @@ export default class Sheet extends Component {
           ]}
           data={[{
             name: "Cassie",
+            age: 25,
             phone: "9876 532 432",
             photo: "images/check.gif",
             id: 1
           },{
             name: "Cassie",
+            age: 25,
             phone: "9876 532 432",
             photo: "images/check.gif",
             id: 2
           },{
             name: "Cassie",
+            age: 25,
             phone: "9876 532 432",
             photo: "images/check.gif",
             id: 3
           },{
             name: "Cassie",
+            age: 25,
             phone: "9876 532 432",
             photo: "images/check.gif",
             id: 4

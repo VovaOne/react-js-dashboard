@@ -3,6 +3,7 @@ import styles from './dropdown.css'
 import Columns from './columns/columns'
 import clickOutside from '../../../../click-outside';
 import TextFilter from './filter/text/text-filter';
+import NumberFilter from './filter/number/number-filter';
 
 export default class DropDown extends Component {
 
@@ -66,17 +67,35 @@ export default class DropDown extends Component {
 
   render() {
 
+    var getFilter = ()=> {
+
+      switch(this.props.column.filter.type) {
+        case "text":
+          return <TextFilter
+            column={this.props.column}
+            filterChangeCallback={this.onFilterChangeCallback}
+          />;
+        case "number":
+          return <NumberFilter/>
+      }
+
+
+    };
+
     return (
       <div className={styles.dropdown} onMouseOver={this.onDisableClose} onMouseOut={this.onEnableClose}>
         <div className={styles.dropdownItem} onMouseOver={this.hideSubMenu}>Sort one</div>
         <div className={styles.dropdownItem} onMouseOver={this.hideSubMenu}>Sort two</div>
 
-        <div className={styles.dropdownItem} onMouseOver={this.onMenuHoverFilters}>
-          <span>Filters</span>
-        </div>
         <div className={styles.dropdownItem} onMouseOver={this.onMenuHoverColumns}>
           <span>Colums</span>
         </div>
+
+        {this.props.column.filter &&
+        <div className={styles.dropdownItem} onMouseOver={this.onMenuHoverFilters}>
+          <span>Filters</span>
+        </div>
+        }
 
         {(() => {
           switch(this.state.selected) {
@@ -85,10 +104,7 @@ export default class DropDown extends Component {
                 displayColumnsMap={this.props.displayColumnsMap}
                 displayColumnCallback={this.displayColumnCallback}/>;
             case "filters":
-              return <TextFilter
-                column={this.props.column}
-                filterChangeCallback={this.onFilterChangeCallback}
-              />;
+              return getFilter()
           }
         })()}
 

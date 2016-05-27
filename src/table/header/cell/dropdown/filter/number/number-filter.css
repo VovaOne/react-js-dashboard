@@ -12,8 +12,3 @@
 }
 
 
-:local(.textField) {
-    width: 100%;
-    height: 28px;
-    border: solid rgba(0, 0, 0, 0.2) 1px;
-}
