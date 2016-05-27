@@ -7,7 +7,8 @@ export default class DropDown extends Component {
 
   static propTypes:{
     displayColumnsMap: React.PropTypes.array,
-    displayColumnCallback: React.PropTypes.func
+    displayColumnCallback: React.PropTypes.func,
+    subMenuSelectedStateCallback: React.PropTypes.func
     };
 
   constructor(props) {
@@ -15,8 +16,17 @@ export default class DropDown extends Component {
     this.state = {
       selected: ''
     }
-
   }
+
+  possibleClose = true;
+  onDisableClose = ()=> {
+    this.possibleClose = false;
+    this.props.subMenuSelectedStateCallback(this.possibleClose);
+  };
+  onEnableClose = ()=> {
+    this.possibleClose = true;
+    this.props.subMenuSelectedStateCallback(this.possibleClose);
+  };
 
   componentDidMount = () => {
     this.clickOutsideCallbackId = clickOutside.addToSubscribers(this.onClickOutside)
@@ -28,11 +38,16 @@ export default class DropDown extends Component {
 
   clickOutsideCallbackId;
   onClickOutside = (e) => {
+    if(!this.possibleClose) return;
     this.setState({selected: ''});
   };
 
   onMenuHoverColumns = () => {
     this.setState({selected: 'columns'});
+  };
+
+  hideSubMenu = () => {
+    this.setState({selected: ''});
   };
 
   displayColumnCallback = (displayColumnsMap) => {
@@ -42,11 +57,11 @@ export default class DropDown extends Component {
   render() {
 
     return (
-      <div className={styles.dropdown}>
-        <p className={styles.dropdownItem}>Sort one</p>
-        <p className={styles.dropdownItem}>Sort two</p>
+      <div className={styles.dropdown} onMouseOver={this.onDisableClose} onMouseOut={this.onEnableClose}>
+        <div className={styles.dropdownItem} onMouseOver={this.hideSubMenu}>Sort one</div>
+        <div className={styles.dropdownItem} onMouseOver={this.hideSubMenu}>Sort two</div>
 
-        <div className={styles.columsItem} onMouseOver={this.onMenuHoverColumns}>
+        <div className={styles.dropdownItem} onMouseOver={this.onMenuHoverColumns}>
           <span>Colums</span>
 
           {(() => {

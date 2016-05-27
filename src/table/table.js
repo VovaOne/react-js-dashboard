@@ -77,11 +77,7 @@ export default class Table extends Component {
             {this.props.columns.map((column, index)=> {
               return <CellHeader key={index}
                                  headerName={column.name}
-                                 displayColumnsMap={[
-                                   {name: 'Name', display : true},
-                                   {name: 'Phone', display : true},
-                                   {name: 'Photo', display : true}
-                                 ]}
+                                 displayColumnsMap={this.props.columns.map((column)=>{return {name: column.name, display: true}})}
                                  displayColumnCallback={this.displayColumnCallback}/>
             })}
           </Header>

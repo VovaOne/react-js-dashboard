@@ -1,10 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
-var precss = require('precss')
+var precss = require('precss');
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',

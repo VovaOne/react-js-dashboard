@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import dropdownStyles from './../dropdown.css'
-
+import columnsDropdownStyles from './columns.css'
+import classNames from 'classnames';
 
 export default class Columns extends Component {
 
@@ -13,16 +13,26 @@ export default class Columns extends Component {
     super(props);
   }
 
-  onHamburgerClick = () => {
-    this.setState({isNavBarOpen: !this.state.isNavBarOpen});
+
+  onDisplayColumnCallback = (e)=> {
+    e.preventDefault();
+
   };
 
   render() {
 
     return (
-      <div className={dropdownStyles.dropdownColums}>
+      <div className={columnsDropdownStyles.dropDownSubMenu}>
         {this.props.displayColumnsMap.map((colum, index)=> {
-          return <p>{colum.name}</p>
+          return <div key={index}
+                      className={columnsDropdownStyles.columsItem}>
+            <input
+              type="checkbox"
+              checked={colum.display}
+              onChange={this.onDisplayColumnCallback}
+            />
+            <span className={columnsDropdownStyles.columnName}>{colum.name}</span>
+          </div>
         })}
       </div>
     );

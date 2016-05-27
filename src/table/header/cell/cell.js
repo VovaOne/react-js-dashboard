@@ -25,7 +25,7 @@ export default class Cell extends Component {
   }
 
   componentDidMount = () => {
-   this.clickOutsideCallbackId = clickOutside.addToSubscribers(this.onClickOutside)
+    this.clickOutsideCallbackId = clickOutside.addToSubscribers(this.onClickOutside)
   };
 
   componentWillUnmount = () => {
@@ -43,9 +43,27 @@ export default class Cell extends Component {
     this.setState({mouseEnter: false});
   };
 
+
   toggleDown = (e) => {
     e.preventDefault();
+    var classes = e.target.classList;
+
+    //is different event
+    var ourEvent = false;
+    for(var i = 0; i < classes.length; i++) {
+      if(classes[i] === "cell-header-toggle") {
+        ourEvent = true;
+      }
+    }
+    if(!ourEvent) return;
+
     this.setState({dropDownOpened: !this.state.dropDownOpened});
+  };
+
+  possibleCloseDropDown = true; //protect close on click outside when clicked in dropDown
+  onDropDownSubMenuSelectedStateCallback = (possibleCloseDropDown)=> {
+    console.log(possibleCloseDropDown);
+    this.possibleCloseDropDown = possibleCloseDropDown;
   };
 
   clickOutsideCallbackId;
@@ -55,13 +73,14 @@ export default class Cell extends Component {
       e.target.parentNode.className.split("").forEach(c => {
         if(c == cellStyles.dropdown) this.setState({dropDownOpened: !this.state.dropDownOpened});
       });
+      return;
     }
-    else {
-      this.setState({
-        dropDownOpened: false,
-        mouseEnter: false
-      });
-    }
+    if(!this.possibleCloseDropDown)return;
+    this.setState({
+      dropDownOpened: false,
+      mouseEnter: false
+    });
+
   };
 
   displayColumnCallback = (displayColumnsMap) => {
@@ -69,7 +88,6 @@ export default class Cell extends Component {
   };
 
   render() {
-    console.log(this.state.dropDownOpened);
     return (
       <div className={classNames(tableHeadStyle.tableHead, tableStyle.tableCell)}
            onMouseEnter={this.onMouseEnter}
@@ -78,12 +96,14 @@ export default class Cell extends Component {
         {this.state.mouseEnter
         &&
         <div onClick={this.toggleDown}
-             className={classNames(cellStyles.dropdown, this.state.dropDownOpened && cellStyles.block)}>
-          <span>▼</span>
+             className={classNames(cellStyles.dropdown, this.state.dropDownOpened && cellStyles.block,'cell-header-toggle')}>
+          <span className={classNames('cell-header-toggle')}>▼</span>
           <div className={classNames(cellStyles.dropdownContent, this.state.dropDownOpened && cellStyles.block)}>
             <DropDown
               displayColumnsMap={this.props.displayColumnsMap}
-              displayCallback={this.displayColumnCallback}/>
+              displayCallback={this.displayColumnCallback}
+              subMenuSelectedStateCallback={this.onDropDownSubMenuSelectedStateCallback}
+            />
           </div>
         </div>}
 
