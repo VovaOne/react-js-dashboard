@@ -62,7 +62,6 @@ export default class Cell extends Component {
 
   possibleCloseDropDown = true; //protect close on click outside when clicked in dropDown
   onDropDownSubMenuSelectedStateCallback = (possibleCloseDropDown)=> {
-    console.log(possibleCloseDropDown);
     this.possibleCloseDropDown = possibleCloseDropDown;
   };
 
@@ -84,7 +83,7 @@ export default class Cell extends Component {
   };
 
   displayColumnCallback = (displayColumnsMap) => {
-    if(props.displayColumnCallback)displayColumnCallback(displayColumnsMap);
+    this.props.displayColumnCallback(displayColumnsMap);
   };
 
   render() {
@@ -101,7 +100,7 @@ export default class Cell extends Component {
           <div className={classNames(cellStyles.dropdownContent, this.state.dropDownOpened && cellStyles.block)}>
             <DropDown
               displayColumnsMap={this.props.displayColumnsMap}
-              displayCallback={this.displayColumnCallback}
+              displayColumnCallback={this.displayColumnCallback}
               subMenuSelectedStateCallback={this.onDropDownSubMenuSelectedStateCallback}
             />
           </div>

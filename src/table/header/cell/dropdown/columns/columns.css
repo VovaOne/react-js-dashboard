@@ -3,12 +3,12 @@
 }
 
 
-:local(.dropdownItem:hover){
+:local(.columnsItem:hover){
     background-color: rgba(242, 247, 252, 0.42);
 }
 
 
-:local(.columsItem) {
+:local(.columnsItem) {
     position: relative;
     display: inline-block;
     width: 100%;

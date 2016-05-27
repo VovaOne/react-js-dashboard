@@ -51,7 +51,7 @@ export default class DropDown extends Component {
   };
 
   displayColumnCallback = (displayColumnsMap) => {
-    if(props.displayColumnCallback)displayColumnCallback(displayColumnsMap);
+    this.props.displayColumnCallback(displayColumnsMap);
   };
 
   render() {
@@ -69,11 +69,11 @@ export default class DropDown extends Component {
               case "columns":
                 return <Columns
                   displayColumnsMap={this.props.displayColumnsMap}
-                  displayCallback={this.displayColumnCallback}/>;
+                  displayColumnCallback={this.displayColumnCallback}/>;
               case "filters":
                 return <Columns
                   displayColumnsMap={this.props.displayColumnsMap}
-                  displayCallback={this.displayColumnCallback}/>;
+                  displayColumnCallback={this.displayColumnCallback}/>;
             }
           })()}
 

@@ -62,11 +62,26 @@ export default class Table extends Component {
 
   constructor(props) {
     super(props);
-    this.size = 20;
+    this.state = {
+      columns: this.props.columns.map(c=> {
+        return Object.assign(c, {display: true});
+      })
+    };
+
   }
 
   displayColumnCallback = (displayColumnsMap) => {
-
+    var newColumnsState = this.state.columns.map((column)=> {
+      var display;
+      for(let columnStatus of displayColumnsMap) {
+        if(columnStatus.name == column.name) {
+          display = columnStatus.display;
+          break;
+        }
+      }
+      return Object.assign(column, {display: display});
+    });
+    this.setState({columns: newColumnsState});
   };
 
   render() {
@@ -74,10 +89,11 @@ export default class Table extends Component {
       <div className={styles.sheet}>
         <div className={styles.table}>
           <Header>
-            {this.props.columns.map((column, index)=> {
+            {this.state.columns.map((column, index)=> {
+              if(!column.display) return;
               return <CellHeader key={index}
                                  headerName={column.name}
-                                 displayColumnsMap={this.props.columns.map((column)=>{return {name: column.name, display: true}})}
+                                 displayColumnsMap={this.state.columns.map((column)=>{return {name: column.name, display: column.display}})}
                                  displayColumnCallback={this.displayColumnCallback}/>
             })}
           </Header>

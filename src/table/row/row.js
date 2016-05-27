@@ -21,7 +21,8 @@ export default class Row extends Component {
     return (
       <div className={tableStyles.tableRow}>
         {this.props.columns.map((column, index)=> {
-          if(column.hidden) return
+
+          if(!column.display) return;
 
           if(column.type == 'text') return <div
             className={classNames(tableStyles.tableCell ,rowStyles.tableCell)}>
