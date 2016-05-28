@@ -102,7 +102,7 @@ export default class Table extends Component {
             })}
           </Header>
           {this.props.data.map((rowData)=> {
-            return <Row key={rowData.id} data={rowData} columns={this.props.columns}/>
+            return <Row key={rowData.id} data={rowData} columns={this.state.columns}/>
           })}
         </div>
       </div>

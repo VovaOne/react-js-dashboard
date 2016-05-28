@@ -24,12 +24,12 @@ export default class Row extends Component {
 
           if(!column.display) return;
 
-          if(column.type == 'text') return <div
+          if(column.type == 'text') return <div key={index}
             className={classNames(tableStyles.tableCell ,rowStyles.tableCell)}>
             {this.props.data[column.data]}
           </div>
 
-          else if(column.type == 'image') return <div
+          else if(column.type == 'image') return <div key={index}
             className={classNames(tableStyles.tableCell ,rowStyles.tableCell)}>
             <img src={this.props.data[column.data]}
                  alt="checked"/>
