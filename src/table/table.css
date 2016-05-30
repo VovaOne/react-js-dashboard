@@ -1,6 +1,7 @@
 :local(.table) {
     display: table;
-    width: auto;
+    table-layout:fixed;
+    width: 100%;
 }
 
 :local(.tableRow) {
@@ -10,5 +11,4 @@
 
 :local(.tableCell) {
     display: table-cell;
-    width: 200px;
 }

@@ -14,25 +14,26 @@ export default class Sheet extends Component {
               name: 'Name',
               data: 'name',
               type: 'text',
-              width: 200,
+              width: {flex: 4},
+              display: true,
               filter: {type: 'text'}
             },{
               name: 'Age',
               data: 'age',
               type: 'text',
-              width: 100,
+              width: {flex: 1},
               filter: {type: 'number'}
             },{
               name: 'Phone',
               data: 'phone',
               type: 'text',
-              width: 100,
+              width: {flex: 4},
               filter: {type: 'text'}
             },{
               name: 'Photo',
               data: 'photo',
               type: 'image',
-              width: 100
+              width: {px: 200}
             }
           ]}
           data={[{

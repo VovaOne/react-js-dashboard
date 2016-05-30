@@ -7,3 +7,7 @@
 :local(.tableHead:hover) {
     background-color: rgba(242, 247, 252, 0.42);
 }
+
+:local(.columnName) {
+    overflow: hidden;
+}
