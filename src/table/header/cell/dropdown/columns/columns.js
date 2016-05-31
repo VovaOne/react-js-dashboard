@@ -32,7 +32,7 @@ export default class Columns extends Component {
   render() {
     return (
       <div className={columnsDropdownStyles.dropDownSubMenu}>
-        {this.state.displayColumnsMap.map((colum, index)=> {
+        {this.state.displayColumnsMap.map((colum)=> {
           return <div key={colum.name}
                       className={columnsDropdownStyles.columnsItem}>
             <input

@@ -20,16 +20,16 @@ export default class Row extends Component {
   render() {
     return (
       <div className={tableStyles.tableRow}>
-        {this.props.columns.map((column, index)=> {
+        {this.props.columns.map((column)=> {
 
           if(!column.display) return;
 
-          if(column.type == 'text') return <div key={index}
+          if(column.type == 'text') return <div key={column.name}
             className={classNames(tableStyles.tableCell ,rowStyles.tableCell)}>
             {this.props.data[column.data]}
           </div>
 
-          else if(column.type == 'image') return <div key={index}
+          else if(column.type == 'image') return <div key={column.name}
             className={classNames(tableStyles.tableCell ,rowStyles.tableCell)}>
             <img src={this.props.data[column.data]}
                  alt="checked"/>

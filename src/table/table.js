@@ -84,7 +84,7 @@ export default class Table extends Component {
 
   setDisplay = (columns)=> {
     return columns.map(c=> {
-      return Object.assign(c, {display: c.display == undefined ? true : c.display});
+      return {...c, display: c.display == undefined ? true : c.display};
     });
   };
   countWidth = (columns)=> {
@@ -99,7 +99,7 @@ export default class Table extends Component {
     var portion = 100 / flexSum;
 
     return columns.map(c => {
-      return Object.assign(c, {width: {percentage: c.width.flex * portion, flex: c.width.flex, px: c.width.px}});
+      return {...c, width: {...c.width, percentage: c.width.flex * portion}};
     })
   };
 
@@ -112,7 +112,7 @@ export default class Table extends Component {
           break;
         }
       }
-      return Object.assign(column, {display: display});
+      return {...column, display: display};
     });
     this.setState({columns: newColumnsState});
   };
@@ -126,9 +126,9 @@ export default class Table extends Component {
       <div className={styles.sheet}>
         <div className={styles.table}>
           <Header>
-            {this.state.columns.map((column, index)=> {
+            {this.state.columns.map((column)=> {
               if(!column.display) return;
-              return <CellHeader key={index}
+              return <CellHeader key={column.name}
                                  column={column}
                                  displayColumnsMap={this.state.columns.map((column)=>{return {name: column.name, display: column.display}})}
                                  displayColumnCallback={this.displayColumnCallback}
