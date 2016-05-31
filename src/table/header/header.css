@@ -10,4 +10,6 @@
 
 :local(.columnName) {
     overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
 }

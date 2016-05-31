@@ -100,7 +100,8 @@ export default class CellHeader extends Component {
            style={{width:this.getColumnWidth()}}
            onMouseEnter={this.onMouseEnter}
            onMouseLeave={this.onMouseLeave}>
-        <span className={tableHeadStyle.columnName}>{this.props.column.name}</span>
+        <div className={tableHeadStyle.columnName}><span>{this.props.column.name}</span></div>
+
         {this.state.mouseEnter
         &&
         <div onClick={this.toggleDown}

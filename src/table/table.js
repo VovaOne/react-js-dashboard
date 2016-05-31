@@ -77,10 +77,16 @@ export default class Table extends Component {
     columns = this.setDisplay(columns);
 
     this.state = {
-      columns: columns
+      columns: columns,
+      tableDiv: null
     };
 
   }
+
+  componentDidMount = ()=> {
+    var tableDiv = React.findDOMNode(this);
+    this.setState({tableDiv: tableDiv})
+  };
 
   setDisplay = (columns)=> {
     return columns.map(c=> {
@@ -122,6 +128,8 @@ export default class Table extends Component {
   };
 
   render() {
+
+    if(this.state.tableDiv)console.log(this.state.tableDiv.offsetWidth);
     return (
       <div className={styles.sheet}>
         <div className={styles.table}>
