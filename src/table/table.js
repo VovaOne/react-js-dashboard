@@ -71,8 +71,8 @@ export default class Table extends Component {
 
 
   static propTypes:{
-    columns: React.PropTypes.array,
-    data: React.PropTypes.array
+    columns: React.PropTypes.array.isRequired,
+    data: React.PropTypes.array.isRequired
     };
 
 
@@ -111,7 +111,7 @@ export default class Table extends Component {
           <Header>
             {this.state.columns.map((column)=> {
               if(!column.display) return;
-              return <CellHeader key={column.name}
+              return <CellHeader key={column}
                                  column={column}
               />
             })}

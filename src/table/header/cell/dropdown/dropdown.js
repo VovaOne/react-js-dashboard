@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styles from './dropdown.css'
 import Columns from './columns/columns'
-import clickOutside from '../../../../click-outside';
 import TextFilter from './filter/text/text-filter';
 import NumberFilter from './filter/number/number-filter';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
@@ -9,8 +8,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 export default class DropDown extends Component {
 
   static propTypes:{
-    column: React.PropTypes.object,
-    displayColumnsMap: React.PropTypes.array,
+    column: React.PropTypes.object.isRequired,
     subMenuSelectedStateCallback: React.PropTypes.func
     };
 
@@ -31,20 +29,6 @@ export default class DropDown extends Component {
   onEnableClose = ()=> {
     this.possibleClose = true;
     this.props.subMenuSelectedStateCallback(this.possibleClose);
-  };
-
-  componentDidMount = () => {
-    this.clickOutsideCallbackId = clickOutside.addToSubscribers(this.onClickOutside)
-  };
-
-  componentWillUnmount = () => {
-    clickOutside.deleteFromSubscribers(this.clickOutsideCallbackId)
-  };
-
-  clickOutsideCallbackId;
-  onClickOutside = (e) => {
-    if(!this.possibleClose) return;
-    this.setState({selected: ''});
   };
 
   onMenuHoverColumns = () => {

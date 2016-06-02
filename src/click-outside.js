@@ -1,27 +1,27 @@
-export default new class {
+import EventEmitter from 'events';
 
-  subscribers;
-  eventId = 0;
+const CLICK_OUTSIDE_EVENT = 'CLICK_OUTSIDE_EVENT';
 
-  constructor(height, width) {
-    this.subscribers = new Map();
+class ClickOutsideClass extends EventEmitter {
+
+  constructor() {
+    super();
+    window.addEventListener('click', this.clickOutside.bind(this))
   }
 
-  addToSubscribers(subscriber) {
-    var eventId = this.eventId++;
-    this.subscribers.set(eventId, subscriber);
-    return eventId;
+  addClickListener(callback) {
+    this.on(CLICK_OUTSIDE_EVENT, callback);
   }
 
-  deleteFromSubscribers(id) {
-    this.subscribers.delete(id)
+  removeClickListener(callback) {
+    this.removeListener(CLICK_OUTSIDE_EVENT, callback);
   }
 
-  /* using fat arrow to bind to instance */
-  handleDocumentClick = (e) => {
-    this.subscribers.forEach((value, key, myMap) => {
-      value(e);
-    })
-  };
+  clickOutside(e) {
+    this.emit(CLICK_OUTSIDE_EVENT, e);
+  }
 
 }
+
+const clickOutside = new ClickOutsideClass();
+export default clickOutside;

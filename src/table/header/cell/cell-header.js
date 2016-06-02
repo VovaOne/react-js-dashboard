@@ -25,11 +25,11 @@ export default class CellHeader extends Component {
   }
 
   componentDidMount = () => {
-    this.clickOutsideCallbackId = clickOutside.addToSubscribers(this.onClickOutside)
+    clickOutside.addClickListener(this.onClickOutside)
   };
 
   componentWillUnmount = () => {
-    clickOutside.deleteFromSubscribers(this.clickOutsideCallbackId)
+    clickOutside.removeClickListener(this.onClickOutside)
   };
 
   onMouseEnter = (e) => {
@@ -62,7 +62,6 @@ export default class CellHeader extends Component {
     this.possibleCloseDropDown = possibleCloseDropDown;
   };
 
-  clickOutsideCallbackId;
   onClickOutside = (e) => {
     if(e.target.tagName == "SPAN") {
       e.target.parentNode.className.split("").forEach(c => {
@@ -112,52 +111,5 @@ export default class CellHeader extends Component {
         </div>}
       </div>
     );
-  }
-}
-
-class Checkbox extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state={
-      checked: this.props.checked
-    };
-  }
-
-  onChange = (e)=> {
-    var isChecked = this.isChecked(e.target);
-    var changedColumn = this.getValue(e.target);
-    //console.log('changeMeth: '+isChecked);
-    this.setState({checked: isChecked});
-    //this.props.onChange({name: changedColumn, isChecked: isChecked});
-  };
-
-  //componentWillUnmount = (node)=> {
-  //  debugger;
-  //};
-  //
-  //componentWillReceiveProps = (node)=> {
-  //  debugger;
-  //};
-  //
-  //componentDidUpdate = (node)=> {
-  //  debugger;
-  //};
-
-  isChecked = (node)=> {
-    return node.checked;
-  };
-
-  getValue = (node)=> {
-    return node.value;
-  };
-
-  render() {
-    return (<div><input
-      type="checkbox"
-      checked={this.state.checked}
-      onChange={this.onChange}
-    />
-      {this.state.checked+''}</div>)
   }
 }

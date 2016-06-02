@@ -16,14 +16,6 @@ export default class App extends Component {
     };
   }
 
-  componentDidMount = () => {
-    window.appContainer.addEventListener('click', clickOutside.handleDocumentClick)
-  };
-
-  componentWillUnmount = () => {
-    window.appContainer.removeEventListener('click', clickOutside.handleDocumentClick)
-  };
-
   onHamburgerClick = () => {
     this.setState({isNavBarOpen: !this.state.isNavBarOpen});
   };
