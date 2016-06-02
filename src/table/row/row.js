@@ -9,8 +9,8 @@ import classNames from 'classnames';
 export default class Row extends Component {
 
   static propTypes:{
-    columns: React.PropTypes.array,
-    data: React.PropTypes.object
+    columns: React.PropTypes.array.isRequired,
+    data: React.PropTypes.object.isRequired
     };
 
   constructor(props) {

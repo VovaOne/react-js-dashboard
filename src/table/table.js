@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import styles from './table.css';
 import Header from './header/header'
 import Row from './row/row'
+
 import CellHeader from './header/cell/cell-header'
 import classnames from 'classnames'
+
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {Actions} from './flux/action';
+import ColumnStore from './flux/columns-store';
+
 /*
 
  <Table
@@ -72,55 +78,26 @@ export default class Table extends Component {
 
   constructor(props) {
     super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
-    var columns = this.countWidth(this.props.columns);
-    columns = this.setDisplay(columns);
-
+    ColumnStore.initStore(this.props.columns);
     this.state = {
-      columns: columns,
+      columns: ColumnStore.getColumns(),
       tableDiv: null
     };
-
   }
 
+  onChange = ()=> {
+    this.setState({columns: ColumnStore.getColumns()})
+  };
+
   componentDidMount = ()=> {
-    var tableDiv = React.findDOMNode(this);
-    this.setState({tableDiv: tableDiv})
+    //var tableDiv = React.findDOMNode(this);
+    ColumnStore.addChangeListener(this.onChange);
   };
 
-  setDisplay = (columns)=> {
-    return columns.map(c=> {
-      return {...c, display: c.display == undefined ? true : c.display};
-    });
-  };
-  countWidth = (columns)=> {
-    var flexSum = columns.map(c=> {
-      if(!c.width) c.width = {};
-      if(!c.width.flex) c.width.flex = 1;
-      return c.width.flex;
-    }).reduce((prev, curr) => {
-      return prev + curr;
-    });
-
-    var portion = 100 / flexSum;
-
-    return columns.map(c => {
-      return {...c, width: {...c.width, percentage: c.width.flex * portion}};
-    })
-  };
-
-  displayColumnCallback = (displayColumnsMap) => {
-    var newColumnsState = this.state.columns.map((column)=> {
-      var display;
-      for(let columnStatus of displayColumnsMap) {
-        if(columnStatus.name == column.name) {
-          display = columnStatus.display;
-          break;
-        }
-      }
-      return {...column, display: display};
-    });
-    this.setState({columns: newColumnsState});
+  componentWillUnmount = ()=> {
+    ColumnStore.removeChangeListener(this.onChange);
   };
 
   onFilterChangeCallback = (filter)=> {
@@ -128,8 +105,6 @@ export default class Table extends Component {
   };
 
   render() {
-
-    if(this.state.tableDiv)console.log(this.state.tableDiv.offsetWidth);
     return (
       <div className={styles.sheet}>
         <div className={styles.table}>
@@ -138,9 +113,7 @@ export default class Table extends Component {
               if(!column.display) return;
               return <CellHeader key={column.name}
                                  column={column}
-                                 displayColumnsMap={this.state.columns.map((column)=>{return {name: column.name, display: column.display}})}
-                                 displayColumnCallback={this.displayColumnCallback}
-                                 filterChangeCallback={this.onFilterChangeCallback}/>
+              />
             })}
           </Header>
           {this.props.data.map((rowData)=> {

@@ -1,50 +1,84 @@
 import React, { Component } from 'react';
 import columnsDropdownStyles from './columns.css'
 import classNames from 'classnames';
-import checkBoxUtil from './../../../../../util/checkbox'
+import {Actions} from './../../../../flux/action'
+import ColumnStore from './../../../../flux/columns-store'
+
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 export default class Columns extends Component {
-
-  static propTypes:{
-    displayColumnsMap: React.PropTypes.array,
-    displayColumnCallback: React.PropTypes.func
-    };
 
   constructor(props) {
     super(props);
     this.state = {
-      displayColumnsMap: this.props.displayColumnsMap
-    }
+      columns: ColumnStore.getColumns()
+    };
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
-  onDisplayColumnCallback = (e)=> {
-    e.preventDefault();
-    var isChecked = checkBoxUtil.isChecked(e.target);
-    var changedColumn = checkBoxUtil.getValue(e.target);
-    var newDisplayColumnsMapState = this.state.displayColumnsMap.map((column)=> {
-      if(column.name == changedColumn) return {name: column.name, display: isChecked};
-      else return column;
-    });
-    this.setState({displayColumnsMap: newDisplayColumnsMapState});
-    this.props.displayColumnCallback(newDisplayColumnsMapState);
+  onChange = ()=> {
+    this.setState({columns: ColumnStore.getColumns()})
+  };
+
+  componentDidMount = ()=> {
+    ColumnStore.addChangeListener(this.onChange);
+  };
+
+  componentWillUnmount = ()=> {
+    ColumnStore.removeChangeListener(this.onChange);
+  };
+
+  onChangeDisplayColumn = (objNameIsChecked)=> {
+    if(objNameIsChecked.isChecked) Actions.showColumn(objNameIsChecked.name);
+    else Actions.hideColumn(objNameIsChecked.name);
   };
 
   render() {
     return (
       <div className={columnsDropdownStyles.dropDownSubMenu}>
-        {this.state.displayColumnsMap.map((colum)=> {
-          return <div key={colum.name}
-                      className={columnsDropdownStyles.columnsItem}>
-            <input
-              type="checkbox"
-              checked={colum.display}
-              onChange={this.onDisplayColumnCallback}
-              value={colum.name}
-            />
+        {this.state.columns.map((colum)=> {
+          return <div key={colum.name} className={columnsDropdownStyles.columnsItem}>
+            <Checkbox name={colum.name}
+                      checked={colum.display}
+                      onChange={this.onChangeDisplayColumn}/>
             <span className={columnsDropdownStyles.columnName}>{colum.name}</span>
           </div>
         })}
       </div>
     );
+  }
+}
+
+class Checkbox extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: this.props.checked
+    };
+  }
+
+  onChange = (e)=> {
+    var isChecked = this.isChecked(e.target);
+    var changedColumn = this.getValue(e.target);
+    this.setState({checked: isChecked});
+    this.props.onChange({name: changedColumn, isChecked: isChecked})
+  };
+
+  isChecked = (node)=> {
+    return node.checked;
+  };
+
+  getValue = (node)=> {
+    return node.value;
+  };
+
+  render() {
+    return (<input
+      type="checkbox"
+      checked={this.state.checked}
+      onChange={this.onChange}
+      value={this.props.name}
+    />)
   }
 }

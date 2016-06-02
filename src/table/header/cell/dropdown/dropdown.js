@@ -4,19 +4,20 @@ import Columns from './columns/columns'
 import clickOutside from '../../../../click-outside';
 import TextFilter from './filter/text/text-filter';
 import NumberFilter from './filter/number/number-filter';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 export default class DropDown extends Component {
 
   static propTypes:{
     column: React.PropTypes.object,
     displayColumnsMap: React.PropTypes.array,
-    displayColumnCallback: React.PropTypes.func,
-    subMenuSelectedStateCallback: React.PropTypes.func,
-    filterChangeCallback: React.PropTypes.func
+    subMenuSelectedStateCallback: React.PropTypes.func
     };
 
   constructor(props) {
     super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
     this.state = {
       selected: ''
     }
@@ -57,14 +58,6 @@ export default class DropDown extends Component {
     this.setState({selected: ''});
   };
 
-  displayColumnCallback = (displayColumnsMap) => {
-    this.props.displayColumnCallback(displayColumnsMap);
-  };
-
-  onFilterChangeCallback = (filter)=> {
-    this.props.filterChangeCallback(filter);
-  };
-
   render() {
 
     var getFilter = ()=> {
@@ -73,12 +66,10 @@ export default class DropDown extends Component {
         case "text":
           return <TextFilter
             column={this.props.column}
-            filterChangeCallback={this.onFilterChangeCallback}
           />;
         case "number":
           return <NumberFilter/>
       }
-
 
     };
 
@@ -101,8 +92,7 @@ export default class DropDown extends Component {
           switch(this.state.selected) {
             case "columns":
               return <Columns
-                displayColumnsMap={this.props.displayColumnsMap}
-                displayColumnCallback={this.displayColumnCallback}/>;
+                displayColumnsMap={this.props.displayColumnsMap}/>;
             case "filters":
               return getFilter()
           }

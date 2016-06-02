@@ -6,17 +6,17 @@ import clickOutside from '../../../click-outside';
 import classNames from 'classnames';
 import DropDown from './dropdown/dropdown';
 
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+
 export default class CellHeader extends Component {
 
   static propTypes:{
-    column: React.PropTypes.object,
-    displayColumnsMap: React.PropTypes.array,
-    displayColumnCallback: React.PropTypes.func,
-    filterChangeCallback: React.PropTypes.func
+    column: React.PropTypes.object.isRequired
     };
 
   constructor(props) {
     super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
     this.state = {
       mouseEnter: false,
@@ -33,19 +33,16 @@ export default class CellHeader extends Component {
   };
 
   onMouseEnter = (e) => {
-    e.preventDefault();
     this.setState({mouseEnter: true});
   };
 
   onMouseLeave = (e) => {
-    e.preventDefault();
     if(this.state.dropDownOpened) return; // not hide
     this.setState({mouseEnter: false});
   };
 
 
   toggleDown = (e) => {
-    e.preventDefault();
     var classes = e.target.classList;
 
     //is different event
@@ -67,7 +64,6 @@ export default class CellHeader extends Component {
 
   clickOutsideCallbackId;
   onClickOutside = (e) => {
-    e.preventDefault();
     if(e.target.tagName == "SPAN") {
       e.target.parentNode.className.split("").forEach(c => {
         if(c == cellStyles.dropdown) this.setState({dropDownOpened: !this.state.dropDownOpened});
@@ -80,13 +76,6 @@ export default class CellHeader extends Component {
       mouseEnter: false
     });
 
-  };
-
-  displayColumnCallback = (displayColumnsMap) => {
-    this.props.displayColumnCallback(displayColumnsMap);
-  };
-  onFilterChangeCallback = (filter) => {
-    this.props.filterChangeCallback(filter);
   };
 
   getColumnWidth = ()=> {
@@ -110,10 +99,8 @@ export default class CellHeader extends Component {
           <div className={classNames(cellStyles.dropdownContent, this.state.dropDownOpened && cellStyles.block)}>
             <DropDown
               displayColumnsMap={this.props.displayColumnsMap}
-              displayColumnCallback={this.displayColumnCallback}
               subMenuSelectedStateCallback={this.onDropDownSubMenuSelectedStateCallback}
               column={this.props.column}
-              filterChangeCallback={this.onFilterChangeCallback}
             />
           </div>
         </div>}
@@ -125,5 +112,52 @@ export default class CellHeader extends Component {
         </div>}
       </div>
     );
+  }
+}
+
+class Checkbox extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state={
+      checked: this.props.checked
+    };
+  }
+
+  onChange = (e)=> {
+    var isChecked = this.isChecked(e.target);
+    var changedColumn = this.getValue(e.target);
+    //console.log('changeMeth: '+isChecked);
+    this.setState({checked: isChecked});
+    //this.props.onChange({name: changedColumn, isChecked: isChecked});
+  };
+
+  //componentWillUnmount = (node)=> {
+  //  debugger;
+  //};
+  //
+  //componentWillReceiveProps = (node)=> {
+  //  debugger;
+  //};
+  //
+  //componentDidUpdate = (node)=> {
+  //  debugger;
+  //};
+
+  isChecked = (node)=> {
+    return node.checked;
+  };
+
+  getValue = (node)=> {
+    return node.value;
+  };
+
+  render() {
+    return (<div><input
+      type="checkbox"
+      checked={this.state.checked}
+      onChange={this.onChange}
+    />
+      {this.state.checked+''}</div>)
   }
 }
