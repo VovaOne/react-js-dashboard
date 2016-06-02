@@ -77,15 +77,10 @@ export default class CellHeader extends Component {
 
   };
 
-  getColumnWidth = ()=> {
-    if(this.props.column.width.px) return this.props.column.width.px + 'px';
-    return this.props.column.width.percentage + '%';
-  };
-
   render() {
     return (
       <div className={classNames(tableHeadStyle.tableHead, tableStyle.tableCell)}
-           style={{width:this.getColumnWidth()}}
+           style={{width:this.props.column.width.px+'px'}}
            onMouseEnter={this.onMouseEnter}
            onMouseLeave={this.onMouseLeave}>
         <div className={tableHeadStyle.columnName}><span>{this.props.column.name}</span></div>

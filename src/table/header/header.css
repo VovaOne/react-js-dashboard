@@ -12,4 +12,5 @@
     overflow: hidden;
     text-overflow: ellipsis;
     position: absolute;
+    width: inherit;
 }

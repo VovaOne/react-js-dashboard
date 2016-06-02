@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import styles from './table.css';
 import Header from './header/header'
 import Row from './row/row'
@@ -9,6 +10,7 @@ import classnames from 'classnames'
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Actions} from './flux/action';
 import ColumnStore from './flux/columns-store';
+
 
 /*
 
@@ -67,7 +69,7 @@ import ColumnStore from './flux/columns-store';
  />
 
  */
-export default class Table extends Component {
+class Table extends Component {
 
 
   static propTypes:{
@@ -80,10 +82,9 @@ export default class Table extends Component {
     super(props);
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
-    ColumnStore.initStore(this.props.columns);
+    ColumnStore.initStore(this.props.columns, this.props.contentSize);
     this.state = {
-      columns: ColumnStore.getColumns(),
-      tableDiv: null
+      columns: ColumnStore.getColumns()
     };
   }
 
@@ -92,12 +93,20 @@ export default class Table extends Component {
   };
 
   componentDidMount = ()=> {
-    //var tableDiv = React.findDOMNode(this);
+    window.addEventListener('resize', this.didResize);
     ColumnStore.addChangeListener(this.onChange);
   };
 
   componentWillUnmount = ()=> {
     ColumnStore.removeChangeListener(this.onChange);
+  };
+
+  didResize = ()=> {
+    Actions.tableDidResize(this.getWidthPx());
+  };
+
+  getWidthPx = ()=> {
+    return ReactDOM.findDOMNode(this).offsetWidth
   };
 
   onFilterChangeCallback = (filter)=> {
@@ -122,5 +131,28 @@ export default class Table extends Component {
         </div>
       </div>
     );
+  }
+}
+
+
+//count div size
+export default class TableWrapper extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount = ()=> {
+    this.setState({size: this.getWidthPx()});
+  };
+
+  getWidthPx = ()=> {
+    return ReactDOM.findDOMNode(this).offsetWidth;
+  };
+
+  render() {
+    return (<div>
+      {this.state.size && <Table {...this.props} contentSize={this.state.size}/>}
+    </div>);
   }
 }

@@ -4,6 +4,7 @@ import EventEmitter from 'events';
 import columnsUtils from './column-utils'
 const CHANGE_EVENT = 'column-change';
 import {OrderedSet, Record} from 'immutable';
+import resizeEvent from './../../resize'
 
 
 /*
@@ -28,7 +29,7 @@ const ColumnRecord = new Record({
   filter: ColumnFilter
 });
 var _columns;
-
+var _tableWidth;
 
 class ColumnStoreClass extends EventEmitter {
 
@@ -36,7 +37,8 @@ class ColumnStoreClass extends EventEmitter {
     super();
   }
 
-  initStore(columnsConfig) {
+  initStore(columnsConfig, tableWidth) {
+    _tableWidth = tableWidth;
     var columns = this.countWidth(columnsConfig);
     columns = this.setDisplay(columns);
     _columns = OrderedSet.of(...columns);
@@ -60,8 +62,10 @@ class ColumnStoreClass extends EventEmitter {
     var portion = 100 / flexSum;
 
     return columns.map(c => {
-      return {...c, width: new WidthRecord({...c.width, percentage: c.width.flex * portion})};
-    })
+      var percentage = c.width.flex * portion;
+      var px = _tableWidth * percentage / 100;
+      return {...c, width: new WidthRecord({...c.width, percentage: c.width.flex * portion, px: px})};
+    });
   }
 
   emitChange() {
@@ -96,6 +100,15 @@ const showColumn = (columnName) => {
   });
 };
 
+const resizeCountWidth = ()=> {
+  _columns = _columns.map(columnRecord => {
+    var widthRecord = columnRecord.width;
+    var px = _tableWidth * widthRecord.percentage / 100;
+    var newWidthRecord = widthRecord.set('px', px);
+    return columnRecord.set('width', newWidthRecord);
+  });
+};
+
 
 const ColumnStore = new ColumnStoreClass();
 export default ColumnStore;
@@ -103,6 +116,13 @@ export default ColumnStore;
 
 TableDispatcher.register((action) => {
   switch(action.actionType) {
+    case ActionTypes.TABLE_DID_RESIZE:
+    {
+      _tableWidth = action.width;
+      resizeCountWidth();
+      ColumnStore.emitChange();
+      break
+    }
     case ActionTypes.SHOW_COLUMN:
     {
       showColumn(action.columnName);
