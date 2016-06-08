@@ -4,7 +4,7 @@ import NavBar from './navbar/navbar';
 import styles from './app.css' ;
 import Sheet from './sheet/sheet' ;
 import media from './util/media';
-import clickOutside from './click-outside';
+import clickOutside from './window-events';
 
 export default class App extends Component {
 

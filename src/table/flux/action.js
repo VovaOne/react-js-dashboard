@@ -15,9 +15,10 @@ export const Actions = {
       width: width
     });
   },
-  columnsDidResize: (width)=> {
+  columnsDidResize: (name, width)=> {
     TableDispatcher.dispatch({
       actionType: ActionTypes.COLUMNS_DID_RESIZE,
+      name: name,
       width: width
     });
   },

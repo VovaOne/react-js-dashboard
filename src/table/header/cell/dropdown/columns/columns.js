@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import columnsDropdownStyles from './columns.css'
 import classNames from 'classnames';
 import {Actions} from './../../../../flux/action'
-import ColumnStore from './../../../../flux/columns-store'
+import ColumnStore from './../../../../flux/stores/columns-store'
 
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 

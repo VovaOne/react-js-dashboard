@@ -1,10 +1,9 @@
-import TableDispatcher from './table-dispatcher';
-import {ActionTypes} from './action';
+import TableDispatcher from './../table-dispatcher';
+import {ActionTypes} from './../action';
 import EventEmitter from 'events';
-import columnsUtils from './column-utils'
 const CHANGE_EVENT = 'column-change';
 import {OrderedSet, Record} from 'immutable';
-import resizeEvent from './../../resize'
+import resizeEvent from './../../../resize'
 
 
 /*
@@ -30,6 +29,7 @@ const ColumnRecord = new Record({
 });
 var _columns;
 var _tableWidth;
+var _tableHeight;
 
 class ColumnStoreClass extends EventEmitter {
 
@@ -37,8 +37,9 @@ class ColumnStoreClass extends EventEmitter {
     super();
   }
 
-  initStore(columnsConfig, tableWidth) {
+  initStore(columnsConfig, tableWidth, tableHeight) {
     _tableWidth = tableWidth;
+    _tableHeight = tableHeight;
     var columns = this.countWidth(columnsConfig);
     columns = this.setDisplay(columns);
     _columns = OrderedSet.of(...columns);
@@ -100,11 +101,22 @@ const showColumn = (columnName) => {
   });
 };
 
-const resizeCountWidth = ()=> {
+const resizeColumnsByNewWidth = ()=> {
   _columns = _columns.map(columnRecord => {
     var widthRecord = columnRecord.width;
     var px = _tableWidth * widthRecord.percentage / 100;
     var newWidthRecord = widthRecord.set('px', px);
+    return columnRecord.set('width', newWidthRecord);
+  });
+};
+
+const resizeColumn = (name, newWidth)=> {
+  _columns = _columns.map(columnRecord => {
+    if(columnRecord.name != name) return columnRecord;
+
+    var widthRecord = columnRecord.width;
+    var newPercentage = newWidth * widthRecord.percentage / widthRecord.px;
+    var newWidthRecord = widthRecord.set('px', newWidth).set('percentage', newPercentage);
     return columnRecord.set('width', newWidthRecord);
   });
 };
@@ -119,7 +131,7 @@ TableDispatcher.register((action) => {
     case ActionTypes.TABLE_DID_RESIZE:
     {
       _tableWidth = action.width;
-      resizeCountWidth();
+      resizeColumnsByNewWidth();
       ColumnStore.emitChange();
       break
     }
@@ -134,7 +146,12 @@ TableDispatcher.register((action) => {
       hideColumn(action.columnName);
       ColumnStore.emitChange();
       break
-
+    }
+    case ActionTypes.COLUMNS_DID_RESIZE:
+    {
+      resizeColumn(action.name, action.width);
+      ColumnStore.emitChange();
+      break
     }
   }
 });

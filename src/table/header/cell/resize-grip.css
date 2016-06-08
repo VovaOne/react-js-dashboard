@@ -1,0 +1,17 @@
+:local(.resize) {
+    width: 6px;
+    height: 30px;
+    position: absolute;
+}
+
+:local(.resize:hover) {
+    cursor: col-resize;
+}
+
+:local(.resizeHover) {
+    width: 1px;
+    height: 200px;
+    background: #0284ff;
+    position: absolute;
+    cursor: col-resize;
+}
