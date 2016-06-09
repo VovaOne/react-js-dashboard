@@ -10,7 +10,7 @@ import classnames from 'classnames'
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import mouseMoveEventEmitter from './flux/event/mouse-events';
 import {Actions} from './flux/action';
-import ColumnStore from './flux/stores/columns-store';
+import tableStore from './flux/stores/table-store';
 
 
 /*
@@ -82,23 +82,26 @@ class Table extends Component {
   constructor(props) {
     super(props);
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-    ColumnStore.initStore(this.props.columns, this.props.contentSize.width, this.props.contentSize.height);
+    tableStore.initStore(this.props.columns, this.props.contentSize.width);
     this.state = {
-      columns: ColumnStore.getColumns()
+      columns: tableStore.getColumns()
     };
   }
 
   onChange = ()=> {
-    this.setState({columns: ColumnStore.getColumns()})
+    this.setState({columns: tableStore.getColumns()})
   };
 
   componentDidMount = ()=> {
     window.addEventListener('resize', this.didResize);
-    ColumnStore.addChangeListener(this.onChange);
+    tableStore.addChangeListener(this.onChange);
+
+    //height depend of row count
+    tableStore.setHeight(ReactDOM.findDOMNode(this).offsetHeight);
   };
 
   componentWillUnmount = ()=> {
-    ColumnStore.removeChangeListener(this.onChange);
+    tableStore.removeChangeListener(this.onChange);
   };
 
   didResize = ()=> {

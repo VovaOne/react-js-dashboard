@@ -4,6 +4,7 @@ import EventEmitter from 'events';
 const CHANGE_EVENT = 'column-change';
 import {OrderedSet, Record} from 'immutable';
 import resizeEvent from './../../../resize'
+import delegate from './table-store-delegate';
 
 
 /*
@@ -28,21 +29,33 @@ const ColumnRecord = new Record({
   filter: ColumnFilter
 });
 var _columns;
-var _tableWidth;
-var _tableHeight;
+var _tableWidth = 0;
+var _tableHeight = 0;
 
-class ColumnStoreClass extends EventEmitter {
+class TableStoreClass extends EventEmitter {
 
   constructor() {
     super();
   }
 
-  initStore(columnsConfig, tableWidth, tableHeight) {
-    _tableWidth = tableWidth;
-    _tableHeight = tableHeight;
+  initStore(columnsConfig, tableWidth) {
+    this.setWidth(tableWidth);
     var columns = this.countWidth(columnsConfig);
     columns = this.setDisplay(columns);
     _columns = OrderedSet.of(...columns);
+  }
+
+  setWidth(tableWidth) {
+    _tableWidth = tableWidth;
+  }
+
+  setHeight(tableHeight) {
+    _tableHeight = tableHeight;
+    this.emitChange();
+  }
+
+  getHeight() {
+    return _tableHeight;
   }
 
   setDisplay(columns) {
@@ -86,44 +99,8 @@ class ColumnStoreClass extends EventEmitter {
   }
 }
 
-
-const hideColumn = (columnName) => {
-  _columns = _columns.map(column => {
-    if(column.name == columnName) return column.set('display', false);
-    else return column;
-  });
-};
-
-const showColumn = (columnName) => {
-  _columns = _columns.map(column => {
-    if(column.name == columnName) return column.set('display', true);
-    else return column;
-  });
-};
-
-const resizeColumnsByNewWidth = ()=> {
-  _columns = _columns.map(columnRecord => {
-    var widthRecord = columnRecord.width;
-    var px = _tableWidth * widthRecord.percentage / 100;
-    var newWidthRecord = widthRecord.set('px', px);
-    return columnRecord.set('width', newWidthRecord);
-  });
-};
-
-const resizeColumn = (name, newWidth)=> {
-  _columns = _columns.map(columnRecord => {
-    if(columnRecord.name != name) return columnRecord;
-
-    var widthRecord = columnRecord.width;
-    var newPercentage = newWidth * widthRecord.percentage / widthRecord.px;
-    var newWidthRecord = widthRecord.set('px', newWidth).set('percentage', newPercentage);
-    return columnRecord.set('width', newWidthRecord);
-  });
-};
-
-
-const ColumnStore = new ColumnStoreClass();
-export default ColumnStore;
+const tableStore = new TableStoreClass();
+export default tableStore;
 
 
 TableDispatcher.register((action) => {
@@ -131,26 +108,26 @@ TableDispatcher.register((action) => {
     case ActionTypes.TABLE_DID_RESIZE:
     {
       _tableWidth = action.width;
-      resizeColumnsByNewWidth();
-      ColumnStore.emitChange();
+      _columns = delegate.resizeColumnsByNewWidth(_columns, _tableWidth);
+      tableStore.emitChange();
       break
     }
     case ActionTypes.SHOW_COLUMN:
     {
-      showColumn(action.columnName);
-      ColumnStore.emitChange();
+      _columns = delegate.showColumn(_columns, action.columnName);
+      tableStore.emitChange();
       break
     }
     case ActionTypes.HIDE_COLUMN:
     {
-      hideColumn(action.columnName);
-      ColumnStore.emitChange();
+      _columns = delegate.hideColumn(_columns, action.columnName);
+      tableStore.emitChange();
       break
     }
     case ActionTypes.COLUMNS_DID_RESIZE:
     {
-      resizeColumn(action.name, action.width);
-      ColumnStore.emitChange();
+      _columns = delegate.resizeColumn(_columns, action.name, action.width);
+      tableStore.emitChange();
       break
     }
   }

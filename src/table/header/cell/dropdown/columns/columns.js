@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import columnsDropdownStyles from './columns.css'
 import classNames from 'classnames';
 import {Actions} from './../../../../flux/action'
-import ColumnStore from './../../../../flux/stores/columns-store'
+import tableStore from './../../../../flux/stores/table-store'
 
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
@@ -11,21 +11,21 @@ export default class Columns extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      columns: ColumnStore.getColumns()
+      columns: tableStore.getColumns()
     };
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   onChange = ()=> {
-    this.setState({columns: ColumnStore.getColumns()})
+    this.setState({columns: tableStore.getColumns()})
   };
 
   componentDidMount = ()=> {
-    ColumnStore.addChangeListener(this.onChange);
+    tableStore.addChangeListener(this.onChange);
   };
 
   componentWillUnmount = ()=> {
-    ColumnStore.removeChangeListener(this.onChange);
+    tableStore.removeChangeListener(this.onChange);
   };
 
   onChangeDisplayColumn = (objNameIsChecked)=> {

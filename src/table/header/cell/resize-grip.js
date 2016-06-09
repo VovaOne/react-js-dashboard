@@ -3,10 +3,12 @@ import styles from './resize-grip.css';
 import classNames from 'classnames';
 
 import mouseEvents from '../../flux/event/mouse-events'
-import ColumnStore from '../../flux/stores/columns-store'
+import tableStore from '../../flux/stores/table-store'
 import {Actions} from './../../flux/action'
 
-export default class Resize extends Component {
+export default class ResizeGrip extends Component {
+
+  MIN_WIDTH = 50;
 
   static propTypes:{
     column: React.PropTypes.object.isRequired
@@ -15,11 +17,13 @@ export default class Resize extends Component {
   constructor(props) {
     super(props);
 
+
     this.state = {
       width: this.props.column.width.px,
       isPressed: false,
       xStart: null,
-      x: 0
+      x: 0,
+      height: tableStore.getHeight()
     };
   }
 
@@ -27,7 +31,6 @@ export default class Resize extends Component {
   componentDidMount = () => {
     mouseEvents.addMouseMoveListener(this.onMouseMove);
     mouseEvents.addMouseUpListener(this.onMouseUp);
-    ColumnStore.getColumns()
   };
 
   componentWillUnmount = () => {
@@ -36,7 +39,6 @@ export default class Resize extends Component {
   };
 
   onMouseDown = (e) => {
-    //Actions.hideColumn(this.props.column.name);
     this.setState({isPressed: true, xStart: e.clientX});
   };
 
@@ -45,10 +47,11 @@ export default class Resize extends Component {
     if(!this.state.isPressed) return;
 
     var diff = e.clientX - this.state.xStart;
+    var width = this.props.column.width.px + diff;
 
-    //if()
+    if(width <= this.MIN_WIDTH) return;
 
-    this.setState({x: e.clientX, width: this.props.column.width.px + diff});
+    this.setState({x: e.clientX, width: width});
   };
 
   onMouseUp = (e) => {

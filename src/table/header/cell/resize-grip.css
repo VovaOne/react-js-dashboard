@@ -1,6 +1,6 @@
 :local(.resize) {
     width: 6px;
-    height: 30px;
+    height: 26px;
     position: absolute;
 }
 
@@ -9,9 +9,8 @@
 }
 
 :local(.resizeHover) {
-    width: 1px;
-    height: 200px;
-    background: #0284ff;
+    width: 2px;
+    background: #E0E0E0;
     position: absolute;
     cursor: col-resize;
 }
