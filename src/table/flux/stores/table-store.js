@@ -49,11 +49,6 @@ class TableStoreClass extends EventEmitter {
     _tableWidth = tableWidth;
   }
 
-  setHeight(tableHeight) {
-    _tableHeight = tableHeight;
-    this.emitChange();
-  }
-
   getHeight() {
     return _tableHeight;
   }
@@ -109,6 +104,11 @@ TableDispatcher.register((action) => {
     {
       _tableWidth = action.width;
       _columns = delegate.resizeColumnsByNewWidth(_columns, _tableWidth);
+      tableStore.emitChange();
+      break
+    }case ActionTypes.TABLE_HEIGHT_DID_CHANGE:
+    {
+      _tableHeight = action.height;
       tableStore.emitChange();
       break
     }

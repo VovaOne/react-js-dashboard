@@ -4,6 +4,7 @@ export const ActionTypes = {
   HIDE_COLUMN: 'HIDE_COLUMN',
   SHOW_COLUMN: 'SHOW_COLUMN',
   TABLE_DID_RESIZE: 'TABLE_DID_RESIZE',
+  TABLE_HEIGHT_DID_CHANGE: 'TABLE_HEIGHT_DID_CHANGE',
   COLUMNS_DID_RESIZE: 'COLUMNS_DID_RESIZE',
   ADD_FILTER: 'ADD_FILTER',
   ADD_FILTERS: 'ADD_FILTERS',
@@ -17,6 +18,12 @@ export const Actions = {
     TableDispatcher.dispatch({
       actionType: ActionTypes.TABLE_DID_RESIZE,
       width: width
+    });
+  },
+  tableHeightDidChange: (height)=> {
+    TableDispatcher.dispatch({
+      actionType: ActionTypes.TABLE_HEIGHT_DID_CHANGE,
+      height: height
     });
   },
   columnsDidResize: (name, width)=> {

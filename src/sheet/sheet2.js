@@ -8,8 +8,7 @@ export default class Sheet extends Component {
 
   render() {
     return (
-      <div className={styles.sheet}>
-        <Select items={['one','two','three']}/>
+      <div className={styles.sheet2}>
         <Select items={['one','two','three']}/>
         <Select items={['one','two','three']}/>
       </div>

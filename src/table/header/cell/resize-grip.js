@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './resize-grip.css';
 import classNames from 'classnames';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import mouseEvents from '../../event/mouse-events'
 import tableStore from '../../flux/stores/table-store'
@@ -8,7 +9,7 @@ import {Actions} from './../../flux/action'
 
 export default class ResizeGrip extends Component {
 
-  MIN_WIDTH = 50;
+  MIN_WIDTH = 20; //px
 
   static propTypes:{
     column: React.PropTypes.object.isRequired
@@ -16,7 +17,7 @@ export default class ResizeGrip extends Component {
 
   constructor(props) {
     super(props);
-
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
     this.state = {
       width: this.props.column.width.px,
@@ -27,15 +28,22 @@ export default class ResizeGrip extends Component {
     };
   }
 
+  onChange = () => {
+    this.setState({height: tableStore.getHeight()});
+  };
+
 
   componentDidMount = () => {
+    tableStore.addChangeListener(this.onChange);
     mouseEvents.addMouseMoveListener(this.onMouseMove);
     mouseEvents.addMouseUpListener(this.onMouseUp);
   };
 
   componentWillUnmount = () => {
+    tableStore.removeChangeListener(this.onChange);
     mouseEvents.removeMouseMoveListener(this.onMouseMove);
     mouseEvents.removeMouseUpListener(this.onMouseUp);
+
   };
 
   onMouseDown = (e) => {
@@ -61,8 +69,9 @@ export default class ResizeGrip extends Component {
   };
 
   render() {
+
     return (<div style={{position: 'relative', height: '100%'}}>
-        <div style={{left: this.state.x-this.state.xStart}}
+        <div style={{left: this.state.x-this.state.xStart, height:this.state.height+30}}
              className={classNames(styles.resize, this.state.isPressed && styles.resizeHover)}
              onMouseDown={this.onMouseDown}>
         </div>

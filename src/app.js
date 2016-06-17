@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ToolBar from './toolbar/toolbar';
 import NavBar from './navbar/navbar';
 import styles from './app.css' ;
-import Sheet from './sheet/sheet2' ;
+import Sheet from './sheet/sheet' ;
+import Sheet2 from './sheet/sheet2' ;
 import media from './util/media';
 import clickOutside from './window-events';
 
@@ -36,6 +37,7 @@ export default class App extends Component {
           <div className="row">
             <div
               className={this.state.isNavBarOpen ? 'content-width-with-opened-sidebar' : 'content-width-with-closed-sidebar'}>
+              <Sheet2/>
               <Sheet/>
             </div>
           </div>

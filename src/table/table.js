@@ -97,7 +97,7 @@ class Table extends Component {
     tableStore.addChangeListener(this.onChange);
 
     //height depend of row count
-    tableStore.setHeight(ReactDOM.findDOMNode(this).offsetHeight);
+    Actions.tableHeightDidChange(ReactDOM.findDOMNode(this).offsetHeight)
   };
 
   componentWillUnmount = ()=> {
