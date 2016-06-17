@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './resize-grip.css';
 import classNames from 'classnames';
 
-import mouseEvents from '../../flux/event/mouse-events'
+import mouseEvents from '../../event/mouse-events'
 import tableStore from '../../flux/stores/table-store'
 import {Actions} from './../../flux/action'
 

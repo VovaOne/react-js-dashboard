@@ -1,5 +1,3 @@
-import {ActionTypes} from './../action';
-import TableDispatcher from './../table-dispatcher';
 import EventEmitter from 'events';
 
 
@@ -18,9 +16,11 @@ class MouseMoveEventEmitterClass extends EventEmitter {
   addClickListener(callback) {
     this.on(CLICK_OUTSIDE_EVENT, callback);
   }
+
   removeClickListener(callback) {
     this.removeListener(CLICK_OUTSIDE_EVENT, callback);
   }
+
   emitClickOutside(e) {
     this.emit(CLICK_OUTSIDE_EVENT, e);
   }
@@ -29,21 +29,24 @@ class MouseMoveEventEmitterClass extends EventEmitter {
   emitMouseMove(e) {
     this.emit(MOUSE_MOVE_EVENT, e);
   }
+
   addMouseMoveListener(callback) {
     this.on(MOUSE_MOVE_EVENT, callback);
   }
+
   removeMouseMoveListener(callback) {
     this.removeListener(MOUSE_MOVE_EVENT, callback);
   }
 
 
-
   emitMouseUp(e) {
     this.emit(MOUSE_UP_EVENT, e);
   }
+
   addMouseUpListener(callback) {
     this.on(MOUSE_UP_EVENT, callback);
   }
+
   removeMouseUpListener(callback) {
     this.removeListener(MOUSE_UP_EVENT, callback);
   }

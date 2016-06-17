@@ -1,0 +1,9 @@
+:local(.item){
+    height: 30px;
+    padding: 5px 5px 5px 10px;
+    width: 100%;
+}
+
+:local(.item:hover){
+    background-color: rgba(242, 247, 252, 0.42);
+}

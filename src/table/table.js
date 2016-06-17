@@ -8,7 +8,7 @@ import CellHeader from './header/cell/cell-header'
 import classnames from 'classnames'
 
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import mouseMoveEventEmitter from './flux/event/mouse-events';
+import mouseMoveEventEmitter from './event/mouse-events';
 import {Actions} from './flux/action';
 import tableStore from './flux/stores/table-store';
 

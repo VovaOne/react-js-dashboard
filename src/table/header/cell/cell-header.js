@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cellStyles from './cell-header.css';
 import tableHeadStyle from '../header.css';
 import tableStyle from '../../table.css';
-import mouseEvent from '../../flux/event/mouse-events';
+import mouseEvent from '../../event/mouse-events';
 import classNames from 'classnames';
 import DropDown from './dropdown/dropdown';
 import ResizeGrip from './resize-grip';

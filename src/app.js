@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ToolBar from './toolbar/toolbar';
 import NavBar from './navbar/navbar';
 import styles from './app.css' ;
-import Sheet from './sheet/sheet' ;
+import Sheet from './sheet/sheet2' ;
 import media from './util/media';
 import clickOutside from './window-events';
 
@@ -12,7 +12,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      isNavBarOpen: !media.xs.matches //hide default side bar on extra small devices
+      isNavBarOpen: false//!media.xs.matches //hide default side bar on extra small devices
     };
   }
 

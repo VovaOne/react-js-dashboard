@@ -4,7 +4,11 @@ export const ActionTypes = {
   HIDE_COLUMN: 'HIDE_COLUMN',
   SHOW_COLUMN: 'SHOW_COLUMN',
   TABLE_DID_RESIZE: 'TABLE_DID_RESIZE',
-  COLUMNS_DID_RESIZE: 'COLUMNS_DID_RESIZE'
+  COLUMNS_DID_RESIZE: 'COLUMNS_DID_RESIZE',
+  ADD_FILTER: 'ADD_FILTER',
+  ADD_FILTERS: 'ADD_FILTERS',
+  REMOVE_COLUMN_FILTER: 'REMOVE_COLUMN_FILTER',
+  REMOVE_ALL_FILTERS: 'REMOVE_ALL_FILTERS'
 };
 
 
@@ -32,6 +36,18 @@ export const Actions = {
     TableDispatcher.dispatch({
       actionType: ActionTypes.SHOW_COLUMN,
       columnName: columnName
+    });
+  },
+  addFilter: (filter)=> {
+    TableDispatcher.dispatch({
+      actionType: ActionTypes.ADD_FILTER,
+      filter: filter
+    });
+  },
+  addFilters: (filterArray)=> {
+    TableDispatcher.dispatch({
+      actionType: ActionTypes.ADD_FILTERS,
+      filterArray: filterArray
     });
   }
 };
