@@ -80,8 +80,8 @@ export default class CellHeader extends Component {
 
   render() {
     return (
-      <div className={classNames(tableHeadStyle.tableHead, tableStyle.tableCell)}
-           style={{width:this.props.column.width.px+'px'}}
+      <th className={classNames(tableHeadStyle.tableHead, cellStyles.tableCell)}
+           style={{minWidth:this.props.column.width.px, maxWidth:this.props.column.width.px}}
            onMouseEnter={this.onMouseEnter}
            onMouseLeave={this.onMouseLeave}>
 
@@ -114,7 +114,7 @@ export default class CellHeader extends Component {
         </table>
 
 
-      </div>
+      </th>
     );
   }
 }

@@ -13,7 +13,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      isNavBarOpen: !media.xs.matches //hide default side bar on extra small devices
+      isNavBarOpen: false//!media.xs.matches //hide default side bar on extra small devices
     };
   }
 
@@ -37,7 +37,7 @@ export default class App extends Component {
           <div className="row">
             <div
               className={this.state.isNavBarOpen ? 'content-width-with-opened-sidebar' : 'content-width-with-closed-sidebar'}>
-              <Sheet2/>
+
               <Sheet/>
             </div>
           </div>

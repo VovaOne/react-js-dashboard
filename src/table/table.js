@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './table.css';
-import Header from './header/header'
 import Row from './row/row'
 
 import CellHeader from './header/cell/cell-header'
@@ -123,19 +122,23 @@ class Table extends Component {
       <div className={styles.sheet}
            onMouseMove={mouseMoveEventEmitter.emitMouseMove.bind(mouseMoveEventEmitter)}
            onMouseUp={mouseMoveEventEmitter.emitMouseUp.bind(mouseMoveEventEmitter)}>
-        <div className={styles.table}>
-          <Header>
+        <table>
+          <thead>
+          <tr>
             {this.state.columns.map((column)=> {
               if(!column.display) return;
               return <CellHeader key={column}
-                                 column={column}
+                                     column={column}
               />
             })}
-          </Header>
+          </tr>
+          </thead>
+          <tbody>
           {this.props.data.map((rowData)=> {
             return <Row key={rowData.id} data={rowData} columns={this.state.columns}/>
           })}
-        </div>
+          </tbody>
+        </table>
       </div>
     );
   }

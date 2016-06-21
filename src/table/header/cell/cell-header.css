@@ -37,11 +37,14 @@
     display: block;
 }
 
-
 :local(.table) {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
 
+}
+
+:local(.tableCell:hover) {
+    background-color: rgba(242, 247, 252, 0.42);
 }

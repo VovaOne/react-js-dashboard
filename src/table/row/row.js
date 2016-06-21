@@ -19,23 +19,27 @@ export default class Row extends Component {
 
   render() {
     return (
-      <div className={tableStyles.tableRow}>
+      <tr className={rowStyles.tableRow}>
         {this.props.columns.map((column)=> {
 
           if(!column.display) return;
 
-          if(column.type == 'text') return <div key={column.name}
-            className={classNames(tableStyles.tableCell ,rowStyles.tableCell)}>
-            {this.props.data[column.data]}
-          </div>
+          if(column.type == 'text')
+            return <td key={column.name}
+                       className={classNames(rowStyles.tableCell)}
+                       style={{minWidth:column.width.px, maxWidth:column.width.px}}>
+              {this.props.data[column.data]}
+            </td>
 
-          else if(column.type == 'image') return <div key={column.name}
-            className={classNames(tableStyles.tableCell ,rowStyles.tableCell)}>
-            <img src={this.props.data[column.data]}
-                 alt="checked"/>
-          </div>
+          else if(column.type == 'image')
+            return <td key={column.name}
+                       className={classNames(rowStyles.tableCell)}
+                       style={{minWidth:column.width.px, maxWidth:column.width.px}}>
+              <img src={this.props.data[column.data]}
+                   alt="checked"/>
+            </td>
         })}
-      </div>
+      </tr>
     );
   }
 }

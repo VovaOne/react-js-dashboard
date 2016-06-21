@@ -4,17 +4,3 @@
     height: 100%;
 }
 
-:local(.table) {
-    display: table;
-    table-layout:fixed;
-    width: 100%;
-}
-
-:local(.tableRow) {
-    display: table-row;
-    width: auto;
-}
-
-:local(.tableCell) {
-    display: table-cell;
-}
