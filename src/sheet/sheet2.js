@@ -10,7 +10,7 @@ export default class Sheet extends Component {
     return (
       <div className={styles.sheet2}>
         <Select items={['one','two','three']}/>
-        <Select items={['one','two','three']}/>
+        <Select items={['one','two','three','4','5','6','7','8','9']}/>
       </div>
     );
   }

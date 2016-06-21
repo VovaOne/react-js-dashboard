@@ -12,6 +12,8 @@ import mouseMoveEventEmitter from './event/mouse-events';
 import {Actions} from './flux/action';
 import tableStore from './flux/stores/table-store';
 
+import { Scrollbars } from 'react-custom-scrollbars';
+
 
 /*
 
@@ -165,7 +167,10 @@ export default class TableWrapper extends Component {
 
   render() {
     return (<div className={styles.tableWrapper}>
-      {this.state.size && <Table {...this.props} contentSize={this.state.size}/>}
+      <Scrollbars
+        autoHide={true}>
+        {this.state.size && <Table {...this.props} contentSize={this.state.size}/>}
+      </Scrollbars>
     </div>);
   }
 }

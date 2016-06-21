@@ -13,7 +13,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      isNavBarOpen: false//!media.xs.matches //hide default side bar on extra small devices
+      isNavBarOpen: !media.xs.matches //hide default side bar on extra small devices
     };
   }
 

@@ -28,28 +28,3 @@ body p {
     font-style: italic;
     font-weight: 300; /* You specify the number you see next to the fonts to change from light to bold ie you would put 700 etc. etc. */
 }
-
-.content-width-with-closed-sidebar {
-    padding-left: 0;
-}
-
-.content-width-with-opened-sidebar {
-    padding-left: 0;
-}
-
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-
-}
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    .content-width-with-opened-sidebar {
-        padding-left: 340px;
-    }
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-
-}

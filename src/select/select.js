@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import ItemList from './open-area/item-list'
 import mouseEvent from './../event/mouse-events'
 
+import { Scrollbars } from 'react-custom-scrollbars';
 
 export default class Select extends Component {
 
@@ -65,8 +66,12 @@ export default class Select extends Component {
             </tbody>
           </table>
           {this.state.isOpen && <div className={styles.openArea}>
-            <ItemList items={this.props.items}
-                      onSelect={this.onItemSelect}/>
+            <Scrollbars
+              autoHide={true}
+              autoHeight={true}>
+              <ItemList items={this.props.items}
+                        onSelect={this.onItemSelect}/>
+            </Scrollbars>
           </div>
           }
         </div>

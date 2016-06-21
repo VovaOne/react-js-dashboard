@@ -60,6 +60,90 @@ export default class Sheet extends Component {
             phone: "9876 532 432",
             photo: "images/check.gif",
             id: 4
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 5
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 6
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 7
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 8
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 9
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 10
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 11
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 12
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 13
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 14
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 15
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 16
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 17
+          },{
+            name: "Cassie",
+            age: 25,
+            phone: "9876 532 432",
+            photo: "images/check.gif",
+            id: 18
           }]}
         />
       </div>
