@@ -37,7 +37,7 @@ export default class App extends Component {
           <div className="row">
             <div
               className={this.state.isNavBarOpen ? 'content-width-with-opened-sidebar' : 'content-width-with-closed-sidebar'}>
-
+              <Sheet2/>
               <Sheet/>
             </div>
           </div>

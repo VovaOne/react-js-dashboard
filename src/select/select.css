@@ -26,7 +26,7 @@
 :local(.grip){
     color: #919191;
     margin-right: 5px;
-    margin-top: -1px;
+    font-size: 21px
 }
 
 :local(.pr100) {
@@ -36,7 +36,6 @@
 
 :local(.rotate180) {
     transform: rotate(180deg);
-    margin-top: 5px;
 }
 
 :local(.openArea) {
